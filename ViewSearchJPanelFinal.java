@@ -12,14 +12,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author manitapasi
  */
-public class ViewJPanel extends javax.swing.JPanel {
+public class ViewSearchJPanelFinal extends javax.swing.JPanel {
 
     /**
      * Creates new form ViewJPanel
      */
     CarList cc;
     int selectedRow;
-    public ViewJPanel(CarList cc) {
+    public ViewSearchJPanelFinal(CarList cc) {
         initComponents();
         selectedRow=0;
         this.cc=cc;
@@ -32,7 +32,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         
         dtm.setRowCount(0);
         
-        for(Car c : cc.getCarCatalogue()){
+        for(Car c : cc.getCarSearchCatalogue()){
             
             Object [] row= new Object[4];
             row[0]= c;
@@ -84,8 +84,10 @@ public class ViewJPanel extends javax.swing.JPanel {
         expiredJRadioButton = new javax.swing.JRadioButton();
         validJRadioButton = new javax.swing.JRadioButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("View Cars");
+        jLabel1.setText("View Search Result");
 
         viewCarsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -292,7 +294,7 @@ public class ViewJPanel extends javax.swing.JPanel {
                isAvalButtonGroup.clearSelection();
                noJRadioButton.setSelected(true);
            }
-           else{
+              else{
                 isAvalButtonGroup.clearSelection();
                yesJRadioButton.setSelected(true);
            }
@@ -306,6 +308,7 @@ public class ViewJPanel extends javax.swing.JPanel {
            else{
                manCertButtonGroup.clearSelection();
                validJRadioButton.setSelected(true);
+               
            }
            
           //  manCertField.setText(c.getMainCert());
@@ -340,17 +343,18 @@ public class ViewJPanel extends javax.swing.JPanel {
             
             Car c= (Car) viewCarsJTable.getValueAt(selectedRow, 0);
             cc.removeCar(c);
+            cc.removeSearchCar(c);
             JOptionPane.showMessageDialog(null, "Car details successfully deleted.");
             populateTable();
             
-                manTxtField.setText("");
-    manYearTxtField.setText("");
-    serNumTxtField.setText("");
-    noOfSeatsTxtField.setText("");
-    modTxtField.setText("");
-    cityTxtField.setText("");
- //   manCertField.setText("");
-   // isAvalTxtField.setText("");
+            manTxtField.setText("");
+            manYearTxtField.setText("");
+            serNumTxtField.setText("");
+            noOfSeatsTxtField.setText("");
+            modTxtField.setText("");
+            cityTxtField.setText("");
+         // manCertField.setText("");
+         // isAvalTxtField.setText("");
            
                 }  
             
@@ -394,7 +398,7 @@ public class ViewJPanel extends javax.swing.JPanel {
        try{
     noOfSeats = Integer.parseInt(noOfSeatsTxtField.getText());
     }catch(NumberFormatException E){
-        JOptionPane.showMessageDialog(null, "Number of Seats should be between the input values and can't be blank." ); 
+        JOptionPane.showMessageDialog(null, "Number of Seats should be between numeric and can't be blank." ); 
         countError++;
 
     }
@@ -403,7 +407,7 @@ public class ViewJPanel extends javax.swing.JPanel {
     String mainCert= null;
    // String isAval= isAvalTxtField.getText();
     Boolean isAvailable=false;
-   // if(isAval.equalsIgnoreCase("YES"))isAvailable=true;
+ //   if(isAval.equalsIgnoreCase("YES"))isAvailable=true;
     String isAval = null;
     
               for (Enumeration<AbstractButton> buttons = isAvalButtonGroup.getElements(); buttons.hasMoreElements();) {
@@ -423,10 +427,7 @@ public class ViewJPanel extends javax.swing.JPanel {
             }
             
         }
-              
-              
-              
-    
+            
    // Boolean isAvailable=false;
     if(isAval.equalsIgnoreCase("YES"))isAvailable=true;
     
@@ -437,7 +438,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         if(viewCarsJTable.getSelectedRow()!=selectedRow){
             JOptionPane.showMessageDialog(null, "Please view details of current selected row first.");
             
-                manTxtField.setText("");
+    manTxtField.setText("");
     manYearTxtField.setText("");
     serNumTxtField.setText("");
     noOfSeatsTxtField.setText("");
